@@ -17,6 +17,10 @@ module Girbot
       throw 'browser not set' if browser.nil?
     end
 
+    def self.read path
+      JSON.parse(File.read(path))
+    end
+
     def self.run(options={})
       options[:browser] = BrowserHolder.new if options[:browser].nil?
       options[:headless] = true if options[:headless].nil?

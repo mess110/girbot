@@ -29,7 +29,7 @@ module Girbot
       Watir::Browser.new :chrome
     end
 
-    def chrome proxy
+    def chrome_proxy proxy
       switches = "--proxy-server=#{proxy}"
       Watir::Browser.new :chrome, :switches => switches
     end
