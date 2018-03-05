@@ -29,5 +29,6 @@ end
 
 CookieClicker.run(
   headless: false,
-  closeBrowser: false
+  closeBrowser: false,
+  browser: Girbot::BrowserHolder.new(:chrome, nil)
 )

@@ -17,8 +17,30 @@ module Girbot
       throw 'browser not set' if browser.nil?
     end
 
+    def validate_auth(options)
+      raise 'invalid options[:details]' unless options[:details].is_a?(Hash)
+      raise 'invalid options[:details][:auth]' unless options[:details][:auth].is_a?(Hash)
+      raise 'invalid options[:details][:auth][:user]' unless options[:details][:auth][:user].is_a?(String)
+      raise 'invalid options[:details][:auth][:pass]' unless options[:details][:auth][:pass].is_a?(String)
+    end
+
+    def validate_card(options)
+      raise 'invalid options[:details]' unless options[:details].is_a?(Hash)
+      raise 'invalid options[:details][:card]' unless options[:details][:card].is_a?(Hash)
+      raise 'invalid options[:details][:card][:number]' unless options[:details][:card][:number].is_a?(String)
+      raise 'invalid options[:details][:card][:name]' unless options[:details][:card][:name].is_a?(String)
+      raise 'invalid options[:details][:card][:expYear]' unless options[:details][:card][:expYear].is_a?(String)
+      raise 'invalid options[:details][:card][:expMonth]' unless options[:details][:card][:expMonth].is_a?(String)
+      raise 'invalid options[:details][:card][:ccv]' unless options[:details][:card][:ccv].is_a?(String)
+      # TODO: deeper validation
+      # * number is only digits and correct length
+      # * expYear is a year
+      # * expMonth is a month
+      # * ccv is only digits
+    end
+
     def self.read path
-      JSON.parse(File.read(path))
+      JSON.parse(File.read(path), symbolize_names: true)
     end
 
     def self.run(options={})
