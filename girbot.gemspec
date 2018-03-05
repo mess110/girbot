@@ -38,6 +38,6 @@ Gem::Specification.new do |spec|
   spec.add_dependency "watir", "6.1.0"
   spec.add_dependency "selenium-webdriver", "3.0.5"
   spec.add_dependency "watir-webdriver", "0.9.9"
-  spec.add_dependency "nokogiri", "1.7.0.1"
+  spec.add_dependency "nokogiri", "1.8.1"
   spec.add_dependency "headless", "2.3.1"
 end
