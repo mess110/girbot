@@ -3,6 +3,7 @@ require 'watir'
 require 'open-uri'
 require 'base64'
 require 'headless'
+require 'socket'
 
 require 'girbot/watir_shortcuts'
 require 'girbot/browser_holder'

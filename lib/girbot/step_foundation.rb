@@ -17,6 +17,34 @@ module Girbot
       throw 'browser not set' if browser.nil?
     end
 
+    def wait_for_sms
+      auth_code = nil
+      server = TCPServer.new('0.0.0.0', 4125)
+      puts 'Listenting on 0.0.0.0:4125'
+      loop do
+        socket = server.accept
+
+        request = socket.gets
+
+        response = "{}\n"
+        socket.print "HTTP/1.1 200 OK\r\n" +
+          "Content-Type: text/plain\r\n" +
+          "Content-Length: #{response.bytesize}\r\n" +
+          "Connection: close\r\n"
+
+          socket.print "\r\n"
+          socket.print response
+          socket.close
+
+          if request.start_with?('GET /sms?authCode=')
+            STDERR.puts request
+            auth_code = request.split('=').last.split(' ').first
+            break
+          end
+      end
+      auth_code
+    end
+
     def validate_auth(options)
       raise 'invalid options[:details]' unless options[:details].is_a?(Hash)
       raise 'invalid options[:details][:auth]' unless options[:details][:auth].is_a?(Hash)
