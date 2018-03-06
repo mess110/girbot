@@ -9,9 +9,9 @@ Gem::Specification.new do |spec|
   spec.authors       = ["Cristian Mircea Messel"]
   spec.email         = ["mess110@gmail.com"]
 
-  spec.summary       = %q{Summary}
-  spec.description   = %q{Description}
-  spec.homepage      = "http://google.com"
+  spec.summary       = %q{> bleep-blop wreak havoc bleep mischief - Girbot}
+  spec.description   = %q{Girbot wants to help you automate boring tasks. You define steps which can be run in different browsers.}
+  spec.homepage      = "https://github.com/mess110/girbot"
   spec.license       = "MIT"
 
   spec.files         = `git ls-files -z`.split("\x0").reject do |f|
