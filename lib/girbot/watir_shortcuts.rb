@@ -12,6 +12,13 @@ module Girbot
       browser.text_field(query).set text
     end
 
+    def append_to_textfield text, query
+      input = browser.text_field(query)
+      text.chars.each do |c|
+        input.append(c)
+      end
+    end
+
     def fire query
       browser.checkbox(query).fire_event :click
     end
