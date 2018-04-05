@@ -19,6 +19,10 @@ module Girbot
       end
     end
 
+    def exec_js js
+      browser.execute_script(js)
+    end
+
     def fire query
       browser.checkbox(query).fire_event :click
     end
