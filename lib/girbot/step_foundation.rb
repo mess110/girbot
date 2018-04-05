@@ -50,6 +50,7 @@ module Girbot
       raise 'invalid options[:details][:auth]' unless options[:details][:auth].is_a?(Hash)
       raise 'invalid options[:details][:auth][:user]' unless options[:details][:auth][:user].is_a?(String)
       raise 'invalid options[:details][:auth][:pass]' unless options[:details][:auth][:pass].is_a?(String)
+      options[:details][:auth]
     end
 
     def validate_card(options)
@@ -65,6 +66,7 @@ module Girbot
       # * expYear is a year
       # * expMonth is a month
       # * ccv is only digits
+      options[:details][:card]
     end
 
     def self.read path
