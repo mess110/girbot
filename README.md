@@ -13,6 +13,9 @@ Girbot::Step.run(
   # if the browser is hidden
   headless: true,
 
+  # if the browser should be maximized
+  maximize: true,
+
   # opens the browser in the BrowserHolder
   openBrowser: true,
 

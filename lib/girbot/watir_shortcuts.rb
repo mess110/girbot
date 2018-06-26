@@ -4,6 +4,14 @@ module Girbot
       @browser_holder.browser
     end
 
+    def maximize
+      browser.driver.manage.window.maximize
+    rescue Selenium::WebDriver::Error::UnknownError => e
+      puts 'Could not maximize. Moving on.'
+      puts e
+      puts e.backtrace
+    end
+
     def goto url
       browser.goto url
     end
@@ -23,10 +31,6 @@ module Girbot
       browser.execute_script(js)
     end
 
-    def fire query
-      browser.checkbox(query).fire_event :click
-    end
-
     def select_value(value, query)
       browser.select_list(query).select_value(value)
     end
@@ -38,6 +42,15 @@ module Girbot
     #
     def click(type, query)
       browser.send(type, query).click
+    end
+
+    # Examples:
+    #
+    #   fire_event(:checkbox, id: 'my-id')
+    #   fire_event(:checkbox, class: 'my-class', :click)
+    #
+    def fire_event(type, query, event = :click)
+      browser.send(type, query).fire_event event
     end
 
     def close

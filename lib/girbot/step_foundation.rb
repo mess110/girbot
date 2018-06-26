@@ -8,6 +8,7 @@ module Girbot
 
     def take_whole_action options, openBrowser, closeBrowser
       @browser_holder.init if openBrowser
+      maximize if options[:maximize]
       validate_browser_presence
       action(options)
       close if closeBrowser
@@ -78,6 +79,7 @@ module Girbot
       options[:headless] = true if options[:headless].nil?
       options[:openBrowser] = true if options[:openBrowser].nil?
       options[:closeBrowser] = true if options[:closeBrowser].nil?
+      options[:maximize] = false if options[:maximize].nil?
 
       step = self.new(options[:browser])
       if options[:headless]
