@@ -53,6 +53,10 @@ module Girbot
       browser.send(type, query).fire_event event
     end
 
+    def screenshot(label)
+      browser.screenshot.save "screenshots/screenshot-#{label}-#{Time.now.to_i}.png"
+    end
+
     def close
       browser.close
     end
