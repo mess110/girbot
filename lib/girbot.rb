@@ -9,6 +9,7 @@ require 'girbot/watir_shortcuts'
 require 'girbot/browser_holder'
 require 'girbot/step_foundation'
 require 'girbot/string_generator'
+require 'girbot/version'
 
 require 'girbot/steps/step'
 require 'girbot/steps/brute_force'
