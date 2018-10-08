@@ -32,7 +32,7 @@ module Girbot
     end
 
     def select_value(value, query)
-      browser.select_list(query).select_value(value)
+      browser.select_list(query).select(value)
     end
 
     # Examples:
@@ -53,8 +53,13 @@ module Girbot
       browser.send(type, query).fire_event event
     end
 
-    def screenshot(label)
-      browser.screenshot.save "screenshots/screenshot-#{label}-#{Time.now.to_i}.png"
+    def screenshot(label, preview = false)
+      result = browser.screenshot.save "screenshots/screenshot-#{label}-#{Time.now.to_i}.png"
+      if preview
+        pid = spawn("xdg-open #{result.path}")
+        Process.detach(pid)
+      end
+      result
     end
 
     def close
