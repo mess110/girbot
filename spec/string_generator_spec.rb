@@ -1,4 +1,4 @@
-require "spec_helper"
+require 'spec_helper'
 
 RSpec.describe Girbot::StringGenerator do
   let(:string_generator) { Girbot::StringGenerator.new }

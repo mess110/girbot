@@ -20,7 +20,7 @@ RUN set -ex \
     && mv -v chromedriver /usr/local/bin/ \
     && rm -v chromedriver_linux64.zip
 
-RUN gem install girbot -v 0.2.1
+RUN gem install girbot -v 0.2.2
 
 RUN mkdir /app
 WORKDIR /app

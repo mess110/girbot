@@ -70,7 +70,7 @@ module Girbot
       options[:details][:card]
     end
 
-    def self.read path
+    def self.read(path)
       JSON.parse(File.read(path), symbolize_names: true)
     end
 
