@@ -54,7 +54,8 @@ module Girbot
     end
 
     def screenshot(label, preview = false)
-      result = browser.screenshot.save "screenshots/screenshot-#{label}-#{Time.now.to_i}.png"
+      timestamp = Time.now.strftime("%F %T")
+      result = browser.screenshot.save "screenshots/#{label}-#{timestamp}.png"
       if preview
         pid = spawn("xdg-open #{result.path}")
         Process.detach(pid)
