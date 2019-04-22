@@ -26,24 +26,43 @@ module Girbot
         socket = server.accept
 
         request = socket.gets
+        send_http_response(socket, {})
 
-        response = "{}\n"
-        socket.print "HTTP/1.1 200 OK\r\n" +
-          "Content-Type: text/plain\r\n" +
-          "Content-Length: #{response.bytesize}\r\n" +
-          "Connection: close\r\n"
-
-          socket.print "\r\n"
-          socket.print response
-          socket.close
-
-          if request.start_with?('GET /sms?authCode=')
-            STDERR.puts request
-            auth_code = request.split('=').last.split(' ').first
-            break
-          end
+        if request.start_with?('GET /sms?authCode=')
+          STDERR.puts request
+          auth_code = request.split('=').last.split(' ').first
+          break
+        end
       end
       auth_code
+    end
+
+    def wait_for_data
+      data = {}
+      server = TCPServer.new('0.0.0.0', 4125)
+      puts 'Listenting on 0.0.0.0:4125'
+      loop do
+        socket = server.accept
+
+        request = socket.gets
+        headers = {}
+        while line = socket.gets.split(' ', 2)              # Collect HTTP headers
+          break if line[0] == ""                            # Blank line means no more headers
+          headers[line[0].chop] = line[1].strip             # Hash headers by type
+        end
+        # STDERR.puts headers
+
+        if request.start_with?('POST /data')
+          # STDERR.puts request
+          json_s = socket.read(headers["Content-Length"].to_i)
+          data = JSON.parse!(json_s)
+          send_http_response(socket, {})
+          break
+        end
+
+        send_http_response(socket, {})
+      end
+      data
     end
 
     def validate_auth(options)
@@ -89,6 +108,20 @@ module Girbot
       else
         step.take_whole_action(options, options[:openBrowser], options[:closeBrowser])
       end
+    end
+
+    private
+
+    def send_http_response(socket, obj)
+      response = "#{obj.to_json}\n"
+      socket.print "HTTP/1.1 200 OK\r\n" +
+        "Content-Type: text/plain\r\n" +
+        "Content-Length: #{response.bytesize}\r\n" +
+        "Connection: close\r\n"
+
+        socket.print "\r\n"
+        socket.print response
+        socket.close
     end
   end
 end

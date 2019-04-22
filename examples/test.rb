@@ -8,6 +8,9 @@ class TestRun < Girbot::Step
     goto "file://#{Dir.pwd}/examples/test_basic.html"
 
     text_in_textfield('john doe', id: 'name')
+
+    data = wait_for_data
+    puts data
   end
 end
 
